@@ -7,9 +7,12 @@
 # * PLUS_INCLUDE_PATH, LDFLAGS, LD_LIBRARY_PATH, PKG_CONFIG_PATH are set
 #
 
-install_dir=`readlink -f ..`/test-root
+this_file=`readlink -f "${BASH_SOURCE[0]}"`
+this_dir=`dirname "$this_file"`
+install_dir=`readlink -f "${this_dir}/.."`/test-root
 
 export JUBATUS_TOP_DIR=$install_dir
+echo "set JUBATUS_TOP_DIR=${JUBATUS_TOP_DIR}"
 
 export PATH=$install_dir/bin:$PATH
 
