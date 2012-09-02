@@ -1,15 +1,19 @@
+#
+# Shell profile for Jubatus build
+#
+# * Jubatus install directory is "../test-root" and
+#   its absolute pathname is set to env-variable JUBATUS_TOP_DIR.
+# * $JUBATUS_TOP_DIR/bin is prepended to PATH
+# * PLUS_INCLUDE_PATH, LDFLAGS, LD_LIBRARY_PATH, PKG_CONFIG_PATH are set
+#
 
-PATH=$HOME/local/bin:$PATH
+install_dir=`readlink -f ..`/test-root
 
-CPLUS_INCLUDE_PATH=$HOME/local/include
-export CPLUS_INCLUDE_PATH
+export JUBATUS_TOP_DIR=$install_dir
 
-export PATH
+export PATH=$install_dir/bin:$PATH
 
-export set LDFLAGS=-L$HOME/local/lib
-
-LD_LIBRARY_PATH=$HOME/local/lib
-export LD_LIBRARY_PATH
-
-PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig
-export PKG_CONFIG_PATH
+export CPLUS_INCLUDE_PATH=$install_dir/include
+export LDFLAGS=-L$install_dir/lib
+export LD_LIBRARY_PATH=$install_dir/lib
+export PKG_CONFIG_PATH=$install_dir/lib/pkgconfig

@@ -1,5 +1,14 @@
 #/bin/sh
 
+# prepare-build.sh
+#
+# * To download sources, 
+#     ./prepare-build -d -p $JUBATUS_TOP_DIR
+#
+# * To build sources,
+#     ./prepare-build -i -p $JUBATUS_TOP_DIR
+#
+
 MSG_VER="0.5.7"
 GLOG_VER="0.3.2"
 UX_VER="0.1.8"
@@ -8,8 +17,8 @@ IPADIC_VER="2.7.0-20070801"
 ZK_VER="3.4.3"
 EVENT_VER="2.0.19"
 PKG_VER="0.25"
-JUBA_VER="0.3.0"
-PREFIX="${HOME}/local"
+# JUBA_VER="0.3.0"
+PREFIX=${JUBATUS_TOP_DIR:-"${HOME}/local"}
 
 while getopts dip: OPT
 do
@@ -53,8 +62,6 @@ if [ "${INSTALL_ONLY}" != "TRUE" ]
     
     if [ -n "$JUBA_VER" ] ;then
         download_tgz https://github.com/jubatus/jubatus/tarball/jubatus-${JUBA_VER} jubatus-${JUBA_VER}.tar.gz
-    else
-        git clone https://github.com/jubatus/jubatus.git
     fi
 
     cd ..
@@ -137,12 +144,10 @@ if [ "${DOWNLOAD_ONLY}" != "TRUE" ]
 
     if [ -n "$JUBA_VER" ]; then
         cd ../jubatus-${JUBA_VER}
-    else
-        cd ../jubatus
-    fi
 
-    ./waf configure --prefix=${PREFIX} --enable-ux --enable-mecab --enable-zookeeper
-    ./waf build --checkall
-    ./waf install
+        ./waf configure --prefix=${PREFIX} --enable-ux --enable-mecab --enable-zookeeper
+        ./waf build --checkall
+        ./waf install
+    fi
 fi
 
