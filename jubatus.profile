@@ -10,11 +10,16 @@
 this_file=`readlink -f "${BASH_SOURCE[0]}"`
 this_dir=`dirname "$this_file"`
 install_dir=`readlink -f "${this_dir}/.."`/test-root
+jubatus_src_dir=`readlink -f "$install_dir/../jubatus"`
 
 export JUBATUS_TOP_DIR=$install_dir
-echo "set JUBATUS_TOP_DIR=${JUBATUS_TOP_DIR}"
 
-export PATH=$install_dir/bin:$PATH
+jubatus_path="$install_dir/bin:$jubatus_src_dir/tools:$jubatus_src_dir/tools/generator:$HOME/.cabal/bin"
+
+echo "set JUBATUS_TOP_DIR=${JUBATUS_TOP_DIR}"
+echo "added PATH $jubatus_path"
+
+export PATH=$jubatus_path:$PATH
 
 export CPLUS_INCLUDE_PATH=$install_dir/include
 export LDFLAGS=-L$install_dir/lib
